@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admin', [App\Http\Controllers\adminController::class, 'index']);
+    Route::get('user', [userController::class, 'index'])->name('user');
+    Route::get('create-user', [userController::class, 'create'])->name('user.create');
+    Route::get('edit-user/{id}', [userController::class, 'edit'])->name('user.edit');
+    Route::get('hapus-user/{id}', [userController::class, 'destroy'])->name('user.destroy');
+    Route::put('edit-user/{id}', [userController::class, 'update'])->name('user.update');
+    Route::post('create-user', [userController::class, 'store'])->name('user.store');
 });
 Route::group(['middleware' => ['auth','gudang']], function () {
     Route::get('/gudang', [App\Http\Controllers\gudangController::class, 'index']);

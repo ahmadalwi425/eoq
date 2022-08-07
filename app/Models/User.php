@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Bagian;
 
 class User extends Authenticatable
 {
@@ -18,10 +19,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
+        'id_bagian',
+        'nama_pegawai',
+        'alamat_pegawai',
+        'hp_pegawai',
         'password',
     ];
+
+    /**
+     * Get the user that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bagian()
+    {
+        return $this->belongsTo(Bagian::class, 'id_bagian');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
